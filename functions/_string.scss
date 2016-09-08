@@ -1,0 +1,52 @@
+/**
+ * @desc 字符串分隔
+ */
+@function str-split($string, $delimiter: " ") {
+    $result: ();
+    $length: str-length($string);
+    @if str-length($delimiter)==0 {
+        @for $i from 1 through $length {
+            $result: append($result, str-slice($string, $i, $i));
+        }
+        @return $result;
+    }
+    $running: true;
+    $remaining: $string;
+    @while $running {
+        $index: str-index($remaining, $delimiter);
+        @if $index {
+            $slice: str-slice($remaining, 1, $index - 1);
+            $result: append($result, $slice);
+            $remaining: str-slice($remaining, $index+ str-length($delimiter));
+        }
+        @else {
+            $running: false;
+        }
+    }
+    @return append($result, $remaining);
+}
+
+
+/**
+ * @desc 字符串重复
+ */
+@function str-repeat($string, $times) {
+    $result: "";
+    @for $i from 1 through $times {
+        $result: $result+ $string;
+    }
+    @return $result;
+}
+
+
+/**
+ * @desc 字符串替换
+ */
+
+@function str-replace($string, $search, $replace: "") {
+    $index: str-index($string, $search);
+    @if $index {
+        @return str-slice($string, 1, $index - 1)+ $replace+ str-replace(str-slice($string, $index+ str-length($search)), $search, $replace);
+    }
+    @return $string;
+}

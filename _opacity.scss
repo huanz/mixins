@@ -1,0 +1,5 @@
+@mixin opacity($value) {
+    $ie: $value * 100;
+    filter: alpha(opacity=$ie);
+    opacity: $value;
+}

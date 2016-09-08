@@ -1,0 +1,46 @@
+/**
+ * @desc 去掉单位
+ */
+
+@function strip-unit($num) {
+    @return $num / ($num * 0+ 1);
+}
+
+
+/**
+ * @desc 将一个值转成rem
+ */
+@function to-rem($value, $base: 100%) {
+    @if type-of($value) !='number' {
+        @return $value;
+    }
+    @if unit($value) !='rem' {
+        $value: strip-unit($value) / strip-unit($base) * 1rem;
+    }
+    @if $value==0rem {
+        $value: 0;
+    }
+    @return $value;
+}
+
+
+/**
+ * @desc 将一个或者多个px值转成rem
+ */
+@function rem-calc($values, $base: 100%) {
+    $rem-values: ();
+    $count: length($values);
+    @if $base==null {
+        $base: $global-font-size;
+    }
+    @if unit($base)=='%' {
+        $base: ($base / 100%) * 16px;
+    }
+    @if $count==1 {
+        @return to-rem($values, $base);
+    }
+    @for $i from 1 through $count {
+        $rem-values: append($rem-values, to-rem(nth($values, $i), $base));
+    }
+    @return $rem-values;
+}

@@ -1,0 +1,19 @@
+/**
+ * @desc 文字超出省略号，支持多行，$substract预留区域百分比%
+ */
+@mixin text-overflow($line: 1, $substract: 0) {
+    overflow: hidden;
+    @if $line==1 {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100% - $substract;
+    }
+    @else {
+        display: -webkit-box;
+        display: box;
+        -webkit-line-clamp: $line;
+        line-clamp: $line;
+        -webkit-box-orient: vertical;
+        box-orient: vertical;
+    }
+}

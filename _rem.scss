@@ -1,0 +1,6 @@
+@mixin rem($property, $values, $base: 16px, $support-ie: false){
+	@if $support-ie {
+        #{$property}: $values;
+	}
+	#{$property}: rem-calc($values, $base);
+}

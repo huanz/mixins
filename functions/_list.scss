@@ -1,0 +1,205 @@
+/**
+ * @desc 获取列表第一个
+ */
+@function first($list) {
+    @return nth($list, 1);
+}
+
+
+/**
+ * @desc 获取列表最后一个
+ */
+@function last($list) {
+    @return nth($list, length($list));
+}
+
+
+/**
+ * @desc 向列表前面插入
+ */
+@function prepend($list, $value) {
+    @return join($value, $list);
+}
+
+
+/**
+ * @desc 向列表指定位置插入
+ */
+@function insert-nth($list, $index, $value) {
+    $result: null;
+    @if type-of($index) !=number {
+        @warn "$index: #{quote($index)} 必须为整数";
+    }
+    @else if $index < 1 {
+        @warn "$index 必须大于0";
+    }
+    @else if $index> length($list) {
+        @warn "$index值为：#{$index} 超出列表长度：#{length($list)}";
+    }
+    @else {
+        $result: ();
+        @for $i from 1 through length($list) {
+            @if $i==$index {
+                $result: append($result, $value);
+            }
+            $result: append($result, nth($list, $i));
+        }
+    }
+    @return $result;
+}
+
+
+/**
+ * @desc 替换列表的某个元素 $recursive 是否全部替换
+ */
+@function replace($list, $old-value, $new-value, $recursive: false) {
+    $result: ();
+    @for $i from 1 through length($list) {
+        @if type-of(nth($list, $i))==list and $recursive {
+            $result: append($result, replace(nth($list, $i), $old-value, $new-value, $recursive));
+        }
+        @else {
+            @if nth($list, $i)==$old-value {
+                $result: append($result, $new-value);
+            }
+            @else {
+                $result: append($result, nth($list, $i));
+            }
+        }
+    }
+    @return $result;
+}
+
+
+/**
+ * @desc 替换列表某个位置
+ */
+@function replace-nth($list, $index, $value) {
+    $result: null;
+    @if type-of($index) !=number {
+        @warn "$index: #{quote($index)} 必须为整数";
+    }
+    @else if $index==0 {
+        @warn "$index 必须是不为0的整数";
+    }
+    @else if abs($index)> length($list) {
+        @warn "$index值为：#{$index} 超出列表长度：#{length($list)}";
+    }
+    @else {
+        $result: ();
+        $index: if($index < 0, length($list)+ $index+ 1, $index);
+        @for $i from 1 through length($list) {
+            @if $i==$index {
+                $result: append($result, $value);
+            }
+            @else {
+                $result: append($result, nth($list, $i));
+            }
+        }
+    }
+    @return $result;
+}
+
+
+/**
+ * @desc 删除列表某个元素 $recursive 是否删除所有
+ */
+@function remove($list, $value, $recursive: false) {
+    $result: ();
+    @for $i from 1 through length($list) {
+        @if type-of(nth($list, $i))==list and $recursive {
+            $result: append($result, remove(nth($list, $i), $value, $recursive));
+        }
+        @else if nth($list, $i) !=$value {
+            $result: append($result, nth($list, $i));
+        }
+    }
+    @return $result;
+}
+
+
+/**
+ * @desc 删除列表指定位置元素
+ */
+@function remove-nth($list, $index) {
+    $result: null;
+    @if type-of($index) !=number {
+        @warn "$index: #{quote($index)} 必须为整数";
+    }
+    @else if $index==0 {
+        @warn "$index 必须是不为0的整数";
+    }
+    @else if abs($index)> length($list) {
+        @warn "$index值为：#{$index} 超出列表长度：#{length($list)}";
+    }
+    @else {
+        $result: ();
+        $index: if($index < 0, length($list)+ $index+ 1, $index);
+        @for $i from 1 through length($list) {
+            @if $i !=$index {
+                $result: append($result, nth($list, $i));
+            }
+        }
+    }
+    @return $result;
+}
+
+
+/**
+ * @desc 截取列表中的一部分
+ */
+@function slice($list, $start: 1, $end: length($list)) {
+    $result: null;
+    @if type-of($start) !=number or type-of($end) !=number {
+        @warn "$start 或者 $end 不是数字";
+    }
+    @else if $start> $end {
+        @warn "$star 必须小于 $end";
+    }
+    @else if $start < 1 or $end < 1 {
+        @warn "$index 必须是不为0的整数";
+    }
+    @else if $start> length($list) {
+        @warn "$start值为：#{$start} 超出列表长度：#{length($list)}";
+    }
+    @else if $end> length($list) {
+        @warn "$end值为：#{$end} 超出列表长度：#{length($list)}";
+    }
+    @else {
+        $result: ();
+        @for $i from $start through $end {
+            $result: append($result, nth($list, $i));
+        }
+    }
+    @return $result;
+}
+
+
+/**
+ * @desc 列表变成字符串
+ */
+@function to-string($list, $glue: '', $is-nested: false) {
+    $result: null;
+    @for $i from 1 through length($list) {
+        $e: nth($list, $i);
+        @if type-of($e)==list {
+            $result: $result#{to-string($e, $glue, true)};
+        }
+        @else {
+            $result: if($i !=length($list) or $is-nested, $result#{$e}#{$glue}, $result#{$e});
+        }
+    }
+    @return $result;
+}
+
+
+/**
+ * @desc 将列表部分元素前置
+ */
+@function shift($list, $index: 1) {
+    $result: ();
+    @for $i from 0 to length($list) {
+        $result: append($result, nth($list, ($i - $index) % length($list)+ 1));
+    }
+    @return $result;
+}

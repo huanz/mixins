@@ -1,0 +1,6 @@
+@mixin float($direction: left, $support-ie: false) {
+    float: unquote($direction);
+    @if $support-ie {
+        _display: inline;
+    }
+}

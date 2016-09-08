@@ -1,0 +1,164 @@
+@mixin screen($min, $max) {
+    @media screen and (min-width: $min) and (max-width: $max) {
+        @content;
+    }
+}
+
+@mixin max-screen($width) {
+    @media screen and (max-width: $width) {
+        @content;
+    }
+}
+
+@mixin min-screen($width) {
+    @media screen and (min-width: $width) {
+        @content;
+    }
+}
+
+// https://bjango.com/articles/min-device-pixel-ratio/
+@mixin hidpi($ratio: 3) {
+    @media only screen and (-webkit-min-device-pixel-ratio: $ratio), only screen and (min--moz-device-pixel-ratio: $ratio), only screen and (-o-min-device-pixel-ratio: #{$ratio}/1), only screen and (min-resolution: #{round($ratio*96)}dpi), only screen and (min-resolution: #{$ratio}dppx) {
+        @content;
+    }
+}
+
+@mixin hidpis($filenames, $ratios, $background-size) {
+    @for $i from 1 to length($filenames) {
+        @include hidpi(nth($ratios, $i)) {
+            background-image: url("#{nth($filenames, $i)}");
+        }
+    }
+    background-size: $background-size;
+}
+
+@mixin retina-image($filename,
+$retina-filename,
+$ratio: 3,
+$background-size: 100%) {
+    background-image: url("#{$filename}");
+    @if length($retina-filename)>1 {
+        @include hidpis($retina-filename,
+        $ratio,
+        $background-size);
+    }
+    @else {
+        @include hidpi($ratio) {
+            background-image: url("#{$retina-filename}");
+            background-size: $background-size;
+        }
+    }
+}
+
+@mixin iphone6($orientation: all) {
+    $deviceMinWidth: 375px;
+    $deviceMaxWidth: 667px;
+    $deviceMinPixelRatio: 2;
+    @if $orientation==all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-min-device-pixel-ratio: $deviceMinPixelRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-min-device-pixel-ratio: $deviceMinPixelRatio) and (orientation: $orientation) {
+            @content;
+        }
+    }
+}
+
+@mixin iphone6plus($orientation: all) {
+    $deviceMinWidth: 414px;
+    $deviceMaxWidth: 736px;
+    $deviceMinPixelRatio: 3;
+    @if $orientation==all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-min-device-pixel-ratio: $deviceMinPixelRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-min-device-pixel-ratio: $deviceMinPixelRatio) and (orientation: $orientation) {
+            @content;
+        }
+    }
+}
+
+@mixin iphone5($orientation: all) {
+    $deviceMinWidth: 320px;
+    $deviceMaxWidth: 568px;
+    $devicePixelRatio: 2;
+    $deviceAspectRatio: '40/71';
+    @if $orientation==all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (device-aspect-ratio: $deviceAspectRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (device-aspect-ratio: $deviceAspectRatio) and (orientation:#{$orientation}) {
+            @content;
+        }
+    }
+}
+
+@mixin iphone4($orientation: all) {
+    $deviceMinWidth: 320px;
+    $deviceMaxWidth: 480px;
+    $devicePixelRatio: 2;
+    $deviceAspectRatio: '2/3';
+    @if $orientation==all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (device-aspect-ratio: $deviceAspectRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-device-pixel-ratio: $devicePixelRatio) and (device-aspect-ratio: 2/3) and (orientation:#{$orientation}) {
+            @content;
+        }
+    }
+}
+
+@mixin ipad($orientation: all) {
+    $deviceMinWidth: 768px;
+    $deviceMaxWidth: 1024px;
+    @if $orientation==all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (orientation:#{$orientation}) {
+            @content;
+        }
+    }
+}
+
+@mixin ipad-mini($orientation: all) {
+    $deviceMinWidth: 768px;
+    $deviceMaxWidth: 1024px;
+    $devicePixelRatio: 1;
+    @if $orientation==all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-min-device-pixel-ratio: $devicePixelRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-min-device-pixel-ratio: $devicePixelRatio) and (orientation:#{$orientation}) {
+            @content;
+        }
+    }
+}
+
+@mixin ipad-retina($orientation: all) {
+    $deviceMinWidth: 768px;
+    $deviceMaxWidth: 1024px;
+    $devicePixelRatio: 2;
+    @if $orientation==all {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-min-device-pixel-ratio: $devicePixelRatio) {
+            @content;
+        }
+    }
+    @else {
+        @media only screen and (min-device-width: $deviceMinWidth) and (max-device-width: $deviceMaxWidth) and (-webkit-min-device-pixel-ratio: $devicePixelRatio) and (orientation:#{$orientation}) {
+            @content;
+        }
+    }
+}
