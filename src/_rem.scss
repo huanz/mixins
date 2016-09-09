@@ -1,4 +1,4 @@
-@mixin rem($property, $values, $base: 16px, $support-ie: false){
+@mixin rem($property, $values, $base: 16px, $support-ie: true){
 	@if $support-ie {
         #{$property}: $values;
 	}

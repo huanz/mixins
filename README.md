@@ -26,6 +26,7 @@ sass mixins
 
 ## utility
 
+* `prefix`
 * `clearfix`
 * `float`
 * `text-overflow`
@@ -38,4 +39,5 @@ sass mixins
 * `center`
 * `media`
 * `box-sizing`
+* `touch-scroll`
 

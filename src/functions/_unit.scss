@@ -1,7 +1,6 @@
 /**
  * @desc 去掉单位
  */
-
 @function strip-unit($num) {
     @return $num / ($num * 0+ 1);
 }

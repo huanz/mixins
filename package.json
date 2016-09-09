@@ -1,0 +1,27 @@
+{
+  "name": "mixins-sass",
+  "version": "1.0.0",
+  "description": "a sass mixins library",
+  "main": "src/mixins.scss",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huanz/mixins.git"
+  },
+  "keywords": [
+    "mixins",
+    "sass",
+    "scss"
+  ],
+  "author": "bukas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huanz/mixins/issues"
+  },
+  "homepage": "https://github.com/huanz/mixins#readme"
+}
