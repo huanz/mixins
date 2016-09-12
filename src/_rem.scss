@@ -1,6 +1,14 @@
-@mixin rem($property, $values, $base: 16px, $support-ie: true){
+@mixin rem($property, $values, $support-ie: true, $base: null){
 	@if $support-ie {
         #{$property}: $values;
 	}
+    @if $base == null {
+        @if global-variable-exists($base-font) {
+            $base: $base-font;
+        }
+        @else {
+            $base: 16px;
+        }
+    }
 	#{$property}: rem-calc($values, $base);
 }

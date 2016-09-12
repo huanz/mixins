@@ -32,10 +32,7 @@
     background-size: $background-size;
 }
 
-@mixin retina-image($filename,
-$retina-filename,
-$ratio: 1.3,
-$background-size: 100%) {
+@mixin retina-image($filename, $retina-filename, $ratio: 1.3, $background-size: 100%) {
     background-image: url("#{$filename}");
     @if length($retina-filename)>1 {
         @include hidpis($retina-filename,

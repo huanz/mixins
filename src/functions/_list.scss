@@ -105,16 +105,7 @@
  * @desc 删除列表某个元素 $recursive 是否删除所有
  */
 @function remove($list, $value, $recursive: false) {
-    $result: ();
-    @for $i from 1 through length($list) {
-        @if type-of(nth($list, $i))==list and $recursive {
-            $result: append($result, remove(nth($list, $i), $value, $recursive));
-        }
-        @else if nth($list, $i) !=$value {
-            $result: append($result, nth($list, $i));
-        }
-    }
-    @return $result;
+    @return replace($list, $value, '', $recursive);
 }
 
 
@@ -122,26 +113,7 @@
  * @desc 删除列表指定位置元素
  */
 @function remove-nth($list, $index) {
-    $result: null;
-    @if type-of($index) !=number {
-        @warn "$index: #{quote($index)} 必须为整数";
-    }
-    @else if $index==0 {
-        @warn "$index 必须是不为0的整数";
-    }
-    @else if abs($index)> length($list) {
-        @warn "$index值为：#{$index} 超出列表长度：#{length($list)}";
-    }
-    @else {
-        $result: ();
-        $index: if($index < 0, length($list)+ $index+ 1, $index);
-        @for $i from 1 through length($list) {
-            @if $i !=$index {
-                $result: append($result, nth($list, $i));
-            }
-        }
-    }
-    @return $result;
+    @return replace-nth($list, $index, '');
 }
 
 
