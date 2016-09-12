@@ -46,13 +46,13 @@ sass mixins，require `Sass ~> 3.3.0`
 
 ### `prefix`
 
-```
+```scss
 // scss 默认前缀：webkit moz ms o
-{
+.test {
 	@include prefix((transliton: all 0.5s ease-out), webkit);
 }
 // css
-{
+.test {
 	-webkit-transliton: all 0.5s ease-out;
    	transliton: all 0.5s ease-out;
 }
@@ -61,13 +61,13 @@ sass mixins，require `Sass ~> 3.3.0`
 
 ### clearfix
 
-```
+```scss
 @include clearfix;
 ```
 
 ### float
 
-```
+```scss
 @include float(left);
 ```
 
@@ -75,13 +75,13 @@ sass mixins，require `Sass ~> 3.3.0`
 
 文字超出显示省略号，支持多行，`$substract`为预留区域百分比%
 
-```
+```scss
 @mixin text-overflow($line: 1, $substract: 0);
 ```
 
 ### animation
 
-```
+```scss
 @include animation(slideUp 900ms ease both) {
 	0% {
         transform: translate3d(0, -200px, 0);
@@ -95,7 +95,7 @@ sass mixins，require `Sass ~> 3.3.0`
 
 ### placeholder
 
-```
+```scss
 // scss
 @include placeholder() {
 	...
@@ -116,7 +116,7 @@ sass mixins，require `Sass ~> 3.3.0`
 
 px转rem
 
-```
+```scss
 // @mixin rem($property, $values, $support-ie: true, $base: null)
 // $support-ie不支持rem的浏览器使用px
 
@@ -125,11 +125,13 @@ px转rem
 
 ### opacity
 
+兼容ie的透明度
+
 ### arrow
 
 生成上下左右的小箭头：[http://lugolabs.com/caret](http://lugolabs.com/caret)
 
-```
+```scss
 // @mixin arrow($width, $border-width, $direction, $color, $background-color, $position: relative)
 // 箭头宽度  线宽 方向 颜色 背景颜色（一般和父级背景同色）
 
@@ -140,7 +142,7 @@ px转rem
 
 三角形生成
 
-```
+```scss
 // @mixin triangle($width, $height, $color: #000, $direction: down)
 
 @include triangle(10px, 5px);
@@ -150,7 +152,7 @@ px转rem
 
 居中
 
-```
+```scss
 // horizontal,vertical,both
 
 @include center(both);
@@ -160,7 +162,7 @@ px转rem
 
 媒体查询相关
 
-```
+```scss
 // min-width max-width
 
 @mixin screen($min, $max)
@@ -177,12 +179,11 @@ px转rem
 @mixin ipad-retina($orientation: all)
 
 @include retina-image(test.png, test@2.png test@3.png, 2 3);
-
 ```
 
 ### box-sizing
 
-```
+```scss
 html {
 	@include box-sizing(border-box);
 }
@@ -190,7 +191,7 @@ html {
 
 ### touch-scroll
 
-```
+```scss
 body {
 	@include touch-scroll;
 }
@@ -210,7 +211,7 @@ body {
 
 字符串分隔
 
-```
+```scss
 @function str-split($string, $delimiter: " ")
 ```
 
@@ -218,7 +219,7 @@ body {
 
 字符串重复
 
-```
+```scss
 @function str-repeat($string, $times)
 ```
 
@@ -226,7 +227,7 @@ body {
 
 字符串替换
 
-```
+```scss
 @function str-replace($string, $search, $replace: "")
 ```
 
@@ -236,7 +237,7 @@ body {
 
 返回列表第一项
 
-```
+```scss
 @function first($list)
 ```
 
@@ -244,7 +245,7 @@ body {
 
 返回列表最后一项
 
-```
+```scss
 @function last($list)
 ```
 
@@ -252,7 +253,7 @@ body {
 
 向列表前面插入一个
 
-```
+```scss
 @function prepend($list, $value)
 ```
 
@@ -260,7 +261,7 @@ body {
 
 向列表某个位置插入
 
-```
+```scss
 @function insert-nth($list, $index, $value)
 ```
 
@@ -268,7 +269,7 @@ body {
 
 替换列表的某个元素 `$recursive` 是否全部替换
 
-```
+```scss
 @function replace($list, $old-value, $new-value, $recursive: false)
 ```
 
@@ -276,7 +277,7 @@ body {
 
 替换列表某个位置的元素
 
-```
+```scss
 @function replace-nth($list, $index, $value)
 ```
 
@@ -284,7 +285,7 @@ body {
 
 删除列表某个元素 `$recursive` 是否删除所有
 
-```
+```scss
 @function remove($list, $value, $recursive: false)
 ```
 
@@ -292,7 +293,7 @@ body {
 
 删除列表指定位置元素
 
-```
+```scss
 @function remove-nth($list, $index)
 ```
 
@@ -300,7 +301,7 @@ body {
 
 截取列表中的一部分
 
-```
+```scss
 @function slice($list, $start: 1, $end: length($list))
 ```
 
@@ -308,7 +309,7 @@ body {
 
 列表变成字符串，`$glue`为连接符，`$is-nested`是否是嵌套的列表
 
-```
+```scss
 @function to-string($list, $glue: '', $is-nested: false)
 ```
 
@@ -316,7 +317,7 @@ body {
 
 将列表部分元素前置
 
-```
+```scss
 @function shift($list, $index: 1)
 ```
 
