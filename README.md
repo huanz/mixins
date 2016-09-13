@@ -4,18 +4,43 @@ sass mixins，require `Sass ~> 3.3.0`
 
 **utility**
 
-`prefix`、`clearfix`、`float`、`text-overflow`、`animation`、`placeholder`、`rem`、`opacity`、`arrow`、`triangle`、`center`、`media`、`box-sizing`、`touch-scroll`、`font`
+* `prefix`
+* `clearfix`
+* `float`
+* `text-overflow`
+* `animation`
+* `placeholder`
+* `rem`
+* `opacity`
+* `arrow`
+* `triangle`
+* `center`
+* `media`
+* `box-sizing`
+* `touch-scroll`
+* `font`
 
 **functions**
 
 *string*
 
-`str-split`、`str-repeat`、`str-replace`
+* `str-split`
+* `str-repeat`
+* `str-replace`
 
 *list*
 
-`first`、`last`、`prepend`、`insert-nth`、`replace`、`replace-nth`、`remove`、`remove-nth`、`slice`、`to-string`、`shift`
-
+* `first`
+* `last`
+* `prepend`
+* `insert-nth`
+* `replace`
+* `replace-nth`
+* `remove`
+* `remove-nth`
+* `slice`
+* `to-string`
+* `shift`
 
 ## utility
 
