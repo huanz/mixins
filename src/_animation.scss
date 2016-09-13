@@ -1,4 +1,4 @@
-@mixin animation($params...) {
+@mixin animation($params) {
     $name: first($params);
     animation: $params;
     @keyframes #{$name} {

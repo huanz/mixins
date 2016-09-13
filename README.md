@@ -4,42 +4,17 @@ sass mixins，require `Sass ~> 3.3.0`
 
 **utility**
 
-* `prefix`
-* `clearfix`
-* `float`
-* `text-overflow`
-* `animation`
-* `placeholder`
-* `rem`
-* `opacity`
-* `arrow`
-* `triangle`
-* `center`
-* `media`
-* `box-sizing`
-* `touch-scroll`
+`prefix`、`clearfix`、`float`、`text-overflow`、`animation`、`placeholder`、`rem`、`opacity`、`arrow`、`triangle`、`center`、`media`、`box-sizing`、`touch-scroll`、`font`
 
 **functions**
 
 *string*
 
-* `str-split`
-* `str-repeat`
-* `str-replace`
+`str-split`、`str-repeat`、`str-replace`
 
 *list*
 
-* `first`
-* `last`
-* `prepend`
-* `insert-nth`
-* `replace`
-* `replace-nth`
-* `remove`
-* `remove-nth`
-* `slice`
-* `to-string`
-* `shift`
+`first`、`last`、`prepend`、`insert-nth`、`replace`、`replace-nth`、`remove`、`remove-nth`、`slice`、`to-string`、`shift`
 
 
 ## utility
@@ -119,6 +94,7 @@ px转rem
 ```scss
 // @mixin rem($property, $values, $support-ie: true, $base: null)
 // $support-ie不支持rem的浏览器使用px
+// $base 如果未传，会搜索全局变量 $base-font，如果没有默认为 16px
 
 @include rem('padding', '10px 5px 5px 10px', true, '16px');
 ```
@@ -202,6 +178,15 @@ body {
 }
 ```
 
+### font
+
+中文字体解决方案，来自[https://github.com/zenozeng/fonts.css](https://github.com/zenozeng/fonts.css)，有`font-hei`、`font-kai`、`font-song`、`font-fang-song`。
+
+```scss
+body {
+    @include font-hei;
+}
+```
 
 ## functions
 
