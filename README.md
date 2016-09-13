@@ -4,43 +4,49 @@ sass mixins，require `Sass ~> 3.3.0`
 
 **utility**
 
-* `prefix`
-* `clearfix`
-* `float`
-* `text-overflow`
-* `animation`
-* `placeholder`
-* `rem`
-* `opacity`
-* `arrow`
-* `triangle`
-* `center`
-* `media`
-* `box-sizing`
-* `touch-scroll`
-* `font`
+* [`prefix`](#prefix)
+* [`clearfix`](#clearfix)
+* [`float`](#float)
+* [`text-overflow`](#text-overflow)
+* [`animation`](#animation)
+* [`placeholder`](#placeholder)
+* [`rem`](#rem)
+* [`opacity`](#opacity)
+* [`arrow`](#arrow)
+* [`triangle`](#triangle)
+* [`center`](#center)
+* [`media`](#media)
+* [`box-sizing`](#box-sizing)
+* [`touch-scroll`](#touch-scroll)
+* [`font`](#font)
 
 **functions**
 
 *string*
 
-* `str-split`
-* `str-repeat`
-* `str-replace`
+* [`str-split`](#str-split)
+* [`str-repeat`](#str-repeat)
+* [`str-replace`](#str-replace)
 
 *list*
 
-* `first`
-* `last`
-* `prepend`
-* `insert-nth`
-* `replace`
-* `replace-nth`
-* `remove`
-* `remove-nth`
-* `slice`
-* `to-string`
-* `shift`
+* [`first`](#first)
+* [`last`](#last)
+* [`prepend`](#prepend)
+* [`insert-nth`](#insert-nth)
+* [`replace`](#replace)
+* [`replace-nth`](#replace-nth)
+* [`remove`](#remove)
+* [`remove-nth`](#remove-nth)
+* [`slice`](#slice)
+* [`to-string`](#to-string)
+* [`shift`](#shift)
+
+## install
+
+```shell
+npm i mixins-sass --save
+```
 
 ## utility
 
