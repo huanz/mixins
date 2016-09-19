@@ -1,0 +1,74 @@
+@mixin onepx($color, $direction) {
+    $border-t: -webkit-gradient(linear, left bottom, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
+    $border-b: -webkit-gradient(linear, left top, left bottom, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
+    $border-l: -webkit-gradient(linear, right top, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
+    $border-r: -webkit-gradient(linear, left top, right top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
+    
+    $list: top bottom left right;
+
+    @if contain($list, $direction) {
+        border-#{$direction}: 1px solid $color;
+    }
+    @else if $direction==vertical {
+        border-top: 1px solid $color;
+        border-bottom: 1px solid $color;
+        background-image:none;
+    }
+    @else {
+        border: 1px solid $color;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio : 2) {
+        border: 0;
+        @if $direction==top or $direction==bottom or $direction==vertical {
+            background-repeat: repeat-x;
+            -webkit-background-size: 100% 1px;
+                    background-size: 100% 1px;
+            
+            @if $direction==top {
+                background-position: left top; 
+                background-image: $border-t;
+            }
+            @else if $direction==bottom {
+                background-position: left bottom; 
+                background-image: $border-b;
+            }
+            @else {
+                background-position: top, bottom;
+                background-image: $border-t, $border-b;
+            }
+        }
+        @else if $direction==left or $direction==right {
+            background-repeat: repeat-y;
+            -webkit-background-size: 1px 100%;
+                    background-size: 1px 100%;
+            @if $direction==left {
+                background-position: left top; 
+                background-image: $border-l;
+            }
+            @else {
+                background-position: right top;
+                background-image: $border-r;
+            }
+        }
+        @else {
+            position: relative;
+            &:after {
+                content: " ";
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0; 
+                background-image: $border-t, $border-r, $border-b, $border-l;
+                -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+                        background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+                background-repeat: no-repeat;
+                background-position: top, right, bottom, left;
+                padding: 1px;
+                box-sizing: border-box;
+                z-index: 10;
+                pointer-events: none;
+            }
+        }
+    }
+}

@@ -175,3 +175,10 @@
     }
     @return $result;
 }
+
+/**
+ * @desc 列表是否存在
+ */
+@function contain($list, $value) {
+    @return not not index($list, $value);
+}

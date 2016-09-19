@@ -19,6 +19,7 @@ sass mixins，require `Sass ~> 3.3.0`
 * [`box-sizing`](#box-sizing)
 * [`touch-scroll`](#touch-scroll)
 * [`font`](#font)
+* [`onepx`](#onepx)
 
 **functions**
 
@@ -41,6 +42,7 @@ sass mixins，require `Sass ~> 3.3.0`
 * [`slice`](#slice)
 * [`to-string`](#to-string)
 * [`shift`](#shift)
+* [`contain`](#contain)
 
 ## install
 
@@ -219,6 +221,17 @@ body {
 }
 ```
 
+### onepx
+
+移动端`1像素`方案
+
+```scss
+// $color $direction: top bottom left right vertical all(可不传，四周边框)
+.border-l {
+    @include onepx(#eee, left);
+}
+```
+
 ## functions
 
 **string**
@@ -337,3 +350,10 @@ body {
 @function shift($list, $index: 1)
 ```
 
+### contain
+
+列表是存在某个值
+
+```
+@function contain($list, $value)
+```
