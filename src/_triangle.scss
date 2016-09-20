@@ -1,49 +1,45 @@
 /**
  * @desc 三角形
  */
-@mixin triangle($width, $height, $color: #000, $direction: down) {
+@mixin triangle($width, $height, $color: #000, $direction: bottom) {
+    $map-direction: (
+        top: bottom left right,
+        bottom: top left right,
+        left: right top bottom,
+        right: left top bottom
+    );
+    @if not map-has-key($map-direction, $direction) {
+        @error "triangle $direction 必须为：#{map-keys($map-direction)}";
+    }
+    $conf: map-get($map-direction, $direction);
     $width: $width/2;
-    $color-border-style: $height solid $color;
-    $transparent-border-style: $width solid transparent;
+
     height: 0;
     width: 0;
-    @if $direction==up {
-        border-bottom: $color-border-style;
-        border-left: $transparent-border-style;
-        border-right: $transparent-border-style;
-    }
-    @else if $direction==right {
-        border-left: $color-border-style;
-        border-top: $transparent-border-style;
-        border-bottom: $transparent-border-style;
-    }
-    @else if $direction==down {
-        border-top: $color-border-style;
-        border-left: $transparent-border-style;
-        border-right: $transparent-border-style;
-    }
-    @else if $direction==left {
-        border-right: $color-border-style;
-        border-top: $transparent-border-style;
-        border-bottom: $transparent-border-style;
-    }
+    border-#{nth($conf, 1)}: $height solid $color;
+    border-#{nth($conf, 2)}: $width solid transparent;
+    border-#{nth($conf, 3)}: $width solid transparent;
 }
 
 
 /**
  * @desc 通过背景图实现三角形
  */
-@mixin background-triangle($color: #000) {
-    $rgb: 'rgb%28#{red($color)}, #{green($color)}, #{blue($color)}%29';
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' width='32' height='24' viewBox='0 0 32 24'><polygon points='0,0 32,0 16,24' style='fill: #{$rgb}'></polygon></svg>");
-    @media screen and (min-width: 0\0) {
-        @if lightness($color) < 60% {
-            // White triangle
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAYAAACbU/80AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIpJREFUeNrEkckNgDAMBBfRkEt0ObRBBdsGXUDgmQfK4XhH2m8czQAAy27R3tsw4Qfe2x8uOO6oYLb6GlOor3GF+swURAOmUJ+RwtEJs9WvTGEYxBXqI1MQAZhCfUQKRzDMVj+TwrAIV6jvSUEkYAr1LSkcyTBb/V+KYfX7xAeusq3sLDtGH3kEGACPWIflNZfhRQAAAABJRU5ErkJggg==');
-        }
-        @else {
-            // Black triangle
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAYCAYAAACbU/80AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAMBJREFUeNrEllsOhCAMRVszC9IlzU7KCmVHTJsoMWYMUtpyv9BgbuXQB5ZSdgBYYY4ycgBivk8KYFsQMfMiTTBP4o3nUzCKzOabLJbLy2/g31evGkAginR4/ZegKH5qX3bJCscA3t0x3kgO5tQFyhhFf50xRqFLbyMUNJQzgyjGS/wgCpvKqkRBpuWrE4V9d+1E4dPUXqIg107SQOE/2DRQxMwTDygIInVDET9T3lCoj/6j/VCmGjZOl2lKpZ8AAwDQP7zIimDGFQAAAABJRU5ErkJggg==');
-        }
+@mixin svg-triangle($width, $height, $color: #000, $direction: bottom) {
+    $map-direction: (
+        top: 0,
+        bottom: 180 strip-unit($width) strip-unit($height),
+        left: -90 strip-unit($height) strip-unit($height),
+        right: 90 strip-unit($width) strip-unit($width)
+    );
+    @if not map-has-key($map-direction, $direction) {
+        @error "svg-triangle $direction 必须为：#{map-keys($map-direction)}";
     }
+    $degrees: map-get($map-direction, $direction);
+
+    width: $width;
+    height: $height;
+    background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20width%3D%22#{$width * 2}%22%20height%3D%22#{$height * 2}%22%3E%3Cpath%20fill%3D%22#{$color}%22%20transform%3D%22rotate(#{$degrees})%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-size: 100% auto;
 }

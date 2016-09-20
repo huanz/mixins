@@ -2,74 +2,36 @@
  * @desc 绘制箭头 http://lugolabs.com/caret
  */
 @mixin arrow($width, $border-width, $direction, $color, $background-color, $position: relative) {
+    $map-direction: (
+        top: bottom left right,
+        bottom: top left right,
+        left: right top bottom,
+        right: left top bottom
+    );
+    @if not map-has-key($map-direction, $direction) {
+        @error "arrow $direction 必须为：#{map-keys($map-direction)}";
+    }
+    $conf: map-get($map-direction, $direction);
+
     position: $position;
     &:before,
     &:after {
         content: "";
         position: absolute;
     }
-    @if $direction==top {
-        &:before {
-            top: 0;
-            left: 0;
-            border-bottom: $width solid $color;
-            border-left: $width solid transparent;
-            border-right: $width solid transparent;
-        }
-        &:after {
-            left: $border-width;
-            top: $border-width;
-            border-bottom: ($width - $border-width) solid $background-color;
-            border-left: ($width - $border-width) solid transparent;
-            border-right: ($width - $border-width) solid transparent;
-        }
+    &:before {
+        top: 0;
+        left: 0;
+
+        border-#{nth($conf, 1)}: $width solid $color;
+        border-#{nth($conf, 2)}: $width solid transparent;
+        border-#{nth($conf, 3)}: $width solid transparent;
     }
-    @else if $direction==right {
-        &:before {
-            top: 0;
-            left: 0;
-            border-left: $width solid $color;
-            border-top: $width solid transparent;
-            border-bottom: $width solid transparent;
-        }
-        &:after {
-            left: 0;
-            top: $border-width;
-            border-left: ($width - $border-width) solid $background-color;
-            border-top: ($width - $border-width) solid transparent;
-            border-bottom: ($width - $border-width) solid transparent;
-        }
-    }
-    @else if $direction==bottom {
-        &:before {
-            top: 0;
-            left: 0;
-            border-top: $width solid $color;
-            border-left: $width solid transparent;
-            border-right: $width solid transparent;
-        }
-        &:after {
-            left: $border-width;
-            top: 0;
-            border-top: ($width - $border-width) solid $background-color;
-            border-left: ($width - $border-width) solid transparent;
-            border-right: ($width - $border-width) solid transparent;
-        }
-    }
-    @else if $direction==left {
-        &:before {
-            top: 0;
-            left: 0;
-            border-right: $width solid $color;
-            border-top: $width solid transparent;
-            border-bottom: $width solid transparent;
-        }
-        &:after {
-            left: $border-width;
-            top: $border-width;
-            border-right: ($width - $border-width) solid $background-color;
-            border-top: ($width - $border-width) solid transparent;
-            border-bottom: ($width - $border-width) solid transparent;
-        }
+    &:after {
+        border-#{nth($conf, 1)}: ($width - $border-width) solid $background-color;
+        border-#{nth($conf, 2)}: ($width - $border-width) solid transparent;
+        border-#{nth($conf, 3)}: ($width - $border-width) solid transparent;
+        top: if($direction==bottom, 0, $border-width);
+        left: if($direction==right, 0, $border-width);
     }
 }

@@ -20,6 +20,7 @@ sass mixins，require `Sass ~> 3.3.0`
 * [`touch-scroll`](#touch-scroll)
 * [`font`](#font)
 * [`onepx`](#onepx)
+* [`balloon`](#balloon)
 
 **functions**
 
@@ -55,16 +56,15 @@ npm i mixins-sass --save
 ### `prefix`
 
 ```scss
-// scss 默认前缀：webkit moz ms o
-.test {
-	@include prefix((transliton: all 0.5s ease-out), webkit);
-}
-// css
-.test {
-	-webkit-transliton: all 0.5s ease-out;
-   	transliton: all 0.5s ease-out;
-}
+/**
+ * @param $map       css列表
+ * @param $vendors   浏览器前缀，默认：webkit moz ms o
+ */
+@mixin prefix($map, $vendors: webkit moz ms o)
 
+.test {
+    @include prefix((transliton: all 0.5s ease-out), webkit);
+}
 ```
 
 ### clearfix
@@ -81,9 +81,13 @@ npm i mixins-sass --save
 
 ### text-overflow
 
-文字超出显示省略号，支持多行，`$substract`为预留区域百分比%
+文字超出显示省略号，支持多行
 
 ```scss
+/**
+ * @param $line       超出显示省略号的行数，默认：1
+ * @param $substract  为预留区域百分比%，默认：0
+ */
 @mixin text-overflow($line: 1, $substract: 0);
 ```
 
@@ -91,7 +95,7 @@ npm i mixins-sass --save
 
 ```scss
 @include animation(slideUp 900ms ease both) {
-	0% {
+    0% {
         transform: translate3d(0, -200px, 0);
     }
     100% {
@@ -125,9 +129,13 @@ npm i mixins-sass --save
 px转rem
 
 ```scss
-// @mixin rem($property, $values, $support-ie: true, $base: null)
-// $support-ie不支持rem的浏览器使用px
-// $base 如果未传，会搜索全局变量 $base-font，如果没有默认为 16px
+/**
+ * @param $property       css属性
+ * @param $values         css属性值
+ * @param $support-ie     是否对不支持rem的浏览器使用px
+ * @param $base           基准字体大小，如果不传会搜索全局变量 $base-font，如果没有默认为 16px
+ */
+@mixin rem($property, $values, $support-ie: true, $base: null)
 
 @include rem('padding', '10px 5px 5px 10px', true, '16px');
 ```
@@ -141,8 +149,14 @@ px转rem
 生成上下左右的小箭头：[http://lugolabs.com/caret](http://lugolabs.com/caret)
 
 ```scss
-// @mixin arrow($width, $border-width, $direction, $color, $background-color, $position: relative)
-// 箭头宽度  线宽 方向 颜色 背景颜色（一般和父级背景同色）
+/**
+ * @param $width
+ * @param $border-width
+ * @param $direction: top bottom left right
+ * @param $background-color
+ * @param $position 默认relative
+ */
+@mixin arrow($width, $border-width, $direction, $color, $background-color, $position: relative)
 
 @include arrow(10px, 1px, 'bottom', '#00f', '#fff');
 ```
@@ -152,7 +166,18 @@ px转rem
 三角形生成
 
 ```scss
-// @mixin triangle($width, $height, $color: #000, $direction: down)
+/**
+ * @param $width
+ * @param $height
+ * @param $color
+ * @param $direction: top bottom left right
+ */
+@mixin triangle($width, $height, $color: #000, $direction: bottom)
+
+/**
+ * svg背景图生成三角形
+ */
+@mixin svg-triangle($width, $height, $color: #000, $direction: bottom)
 
 @include triangle(10px, 5px);
 ```
@@ -162,7 +187,9 @@ px转rem
 居中
 
 ```scss
-// horizontal,vertical,both
+/**
+ * @param $direction: horizontal vertical both
+ */
 
 @include center(both);
 ```
@@ -172,12 +199,21 @@ px转rem
 媒体查询相关
 
 ```scss
-// min-width max-width
-
+/**
+ * @param $min   min-width
+ * @param $max   max-width
+ */
 @mixin screen($min, $max)
 @mixin max-screen($width)
 @mixin min-screen($width)
 @mixin hidpi($ratio: 1.3)
+
+/**
+ * @param $filename
+ * @param $retina-filename   多个或者一个
+ * @param $ratio             多个或者一个
+ * @param $background-size
+ */
 @mixin retina-image($filename, $retina-filename, $ratio: 1.3, $background-size: 100%)
 @mixin iphone6($orientation: all)
 @mixin iphone6plus($orientation: all)
@@ -194,7 +230,7 @@ px转rem
 
 ```scss
 html {
-	@include box-sizing(border-box);
+    @include box-sizing(border-box);
 }
 ```
 
@@ -202,12 +238,12 @@ html {
 
 ```scss
 body {
-	@include touch-scroll;
+    @include touch-scroll;
 }
 // css
 body {
-	-webkit-overflow-scrolling: touch;
-	overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
 }
 ```
 
@@ -226,10 +262,37 @@ body {
 移动端`1像素`方案
 
 ```scss
-// $color $direction: top bottom left right vertical all(可不传，四周边框)
+/**
+ * @param $color
+ * @param $direction: top bottom left right vertical all(默认)
+ */
 .border-l {
     @include onepx(#eee, left);
 }
+```
+
+### balloon
+
+气泡提示，来自：[balloon.css](http://kazzkiq.github.io/balloon.css/)
+
+```scss
+/**
+ * @param $direction:            top bottom left right
+ * @param $bg                    气泡提示背景颜色
+ * @param $trangle-width         气泡小三角形宽度
+ * @param $trangle-height        气泡小三角形高度
+ * @param $color                 气泡文字颜色
+ * @param $font                  气泡文字大小
+ */
+@mixin balloon($direction, $bg, $trangle-width: 18px, $trangle-height: 6px, $color: #fff, $font: 12px)
+
+.balloon {
+    @include balloon(top, #000);
+}
+```
+
+```html
+<div class="balloon" data-balloon="Whats up!">Hover me!</div>
 ```
 
 ## functions

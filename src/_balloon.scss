@@ -1,0 +1,64 @@
+/**
+ * balloon: http://kazzkiq.github.io/balloon.css/
+ */
+@mixin balloon($direction, $bg, $trangle-width: 18px, $trangle-height: 6px, $color: #fff, $font: 12px) {
+    $map-direction: (
+        top: left translate(-50%, 0) bottom translate(-50%, 10px),
+        bottom: left translate(-50%, 0) top translate(-50%, -10px),
+        left: top translate(0, -50%) right translate(10px, -50%),
+        right: top translate(0, -50%) left translate(-10px, -50%)
+    );
+    @if not map-has-key($map-direction, $direction) {
+        @error "balloon $direction 必须为：#{map-keys($map-direction)}";
+    }
+    $conf: map-get($map-direction, $direction);
+
+    &button {
+        overflow: visible;
+    }
+
+    position: relative;
+
+    &:before,
+    &:after {
+        position: absolute;
+        z-index: 10;
+        opacity: 0;
+        pointer-events: none;
+        transition: all .18s ease-out .18s;
+
+        #{nth($conf, 1)}: 50%;
+        #{nth($conf, 3)}: 100%;
+        transform: nth($conf, 4);
+        @if $direction==up {
+            transform-origin: top;
+        }     
+    }
+    &:before {
+        content: " ";
+
+        margin-#{nth($conf, 3)}: 5px;
+        @include svg-triangle($trangle-width, $trangle-height, $bg, $direction);
+    }
+
+    &:after {
+        content: attr(data-balloon);
+        background: $bg;
+        border-radius: 4px;
+        color: $color;
+        font-size: $font;
+        padding: .5em 1em;
+        white-space: nowrap;
+
+        margin-#{nth($conf, 3)}: 5px + $trangle-height;
+    }
+    &:hover {
+        &:after,
+        &:before {
+            opacity: 1;
+            pointer-events: auto;
+
+            transform: nth($conf, 2);
+        }
+    }
+}
