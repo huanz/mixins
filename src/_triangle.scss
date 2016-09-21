@@ -1,5 +1,9 @@
 /**
- * @desc 三角形
+ * @desc  三角形
+ * @param $width
+ * @param $height
+ * @param $color
+ * @param $direction: top bottom left right
  */
 @mixin triangle($width, $height, $color: #000, $direction: bottom) {
     $map-direction: (

@@ -1,3 +1,9 @@
+/**
+ * @param $property       css属性
+ * @param $values         css属性值
+ * @param $support-ie     是否对不支持rem的浏览器使用px
+ * @param $base           基准字体大小，如果不传会搜索全局变量 $base-font，如果没有默认为 16px
+ */
 @mixin rem($property, $values, $support-ie: true, $base: null){
 	@if $support-ie {
         #{$property}: $values;

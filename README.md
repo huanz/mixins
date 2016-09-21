@@ -21,6 +21,7 @@ sass mixins，require `Sass ~> 3.3.0`
 * [`font`](#font)
 * [`onepx`](#onepx)
 * [`balloon`](#balloon)
+* [`side-line`](#side-line)
 
 **functions**
 
@@ -45,10 +46,14 @@ sass mixins，require `Sass ~> 3.3.0`
 * [`shift`](#shift)
 * [`contain`](#contain)
 
-## install
+## usage
 
 ```shell
 npm i mixins-sass --save
+```
+
+```scss
+@import "./node_modules/mixins-sass/src/mixins";
 ```
 
 ## utility
@@ -163,7 +168,17 @@ px转rem
 
 ### triangle
 
-三角形生成
+<style>
+.triangle {
+    height: 0;
+    width: 0;
+    border-top: 10px solid #000;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+}
+</style>
+
+三角形生成，<span class="triangle"></span>
 
 ```scss
 /**
@@ -188,10 +203,9 @@ px转rem
 
 ```scss
 /**
- * @param $direction: horizontal vertical both
+ * @param $direction: horizontal vertical both,  default: both
  */
-
-@include center(both);
+@include center;
 ```
 
 ### media
@@ -264,7 +278,7 @@ body {
 ```scss
 /**
  * @param $color
- * @param $direction: top bottom left right vertical all(默认)
+ * @param $direction: top bottom left right vertical all,  default: all
  */
 .border-l {
     @include onepx(#eee, left);
@@ -274,6 +288,45 @@ body {
 ### balloon
 
 气泡提示，来自：[balloon.css](http://kazzkiq.github.io/balloon.css/)
+
+<style>
+.balloon {
+  position: relative; }
+  button.balloon {
+    overflow: visible; }
+  .balloon:before, .balloon:after {
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .18s ease-out .18s;
+    left: 50%;
+    bottom: 100%;
+    transform: translate(-50%, 10px);
+    transform-origin: top; }
+  .balloon:before {
+    content: " ";
+    margin-bottom: 5px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20width%3D%2236px%22%20height%3D%2212px%22%3E%3Cpath%20fill%3D%22#000%22%20transform%3D%22rotate(0)%22%20d%3D%22M2.658,0.000%20C-13.615,0.000%2050.938,0.000%2034.662,0.000%20C28.662,0.000%2023.035,12.002%2018.660,12.002%20C14.285,12.002%208.594,0.000%202.658,0.000%20Z%22/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    width: 18px;
+    height: 6px; }
+  .balloon:after {
+    content: attr(data-balloon);
+    background: #000;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 12px;
+    padding: .5em 1em;
+    white-space: nowrap;
+    margin-bottom: 11px; }
+  .balloon:hover:after, .balloon:hover:before {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0); }
+</style>
+<span class="balloon" data-balloon="Whats up!">Hover me!</span>
 
 ```scss
 /**
@@ -292,7 +345,52 @@ body {
 ```
 
 ```html
-<div class="balloon" data-balloon="Whats up!">Hover me!</div>
+<span class="balloon" data-balloon="Whats up!">Hover me!</span>
+```
+
+### side-line
+
+<style>
+.side-line {
+    display: block;
+    overflow: hidden;
+    text-align: center;
+}
+.side-line:before,
+.side-line:after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    width: 50%;
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+.side-line:before {
+    right: 0.5em;
+    margin-left: -50%;
+}
+.side-line:after {
+    left: 0.5em;
+    margin-right: -50%;
+}
+</style>
+<p class="side-line">side-line</p>
+
+```scss
+/**
+ * @param $height  线高  default: 1px
+ * @param $space   线距离文字两边的距离 default: 0.5em
+ * @param $color   线颜色 default: inherit
+ * @param $style   border-style default: solid
+ * @param $adjust  线距离底部的距离，默认垂直居中 default: false
+ * @param $double  是否需要两条线
+ */
+@mixin side-line($height: 1px, $space: 0.5em, $color: inherit, $style: solid, $adjust: false, $double: false)
+
+.side-line {
+    @include side-line;
+}
 ```
 
 ## functions

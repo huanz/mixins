@@ -1,0 +1,5 @@
+{
+  "name": "mixins-sass",
+  "description": "A useful and lightweight mixin library for Sass",
+  "tags": ["mixins", "library", "animation", "filters", "media queries", "onepx", "functions", "rem"]
+}

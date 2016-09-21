@@ -1,3 +1,7 @@
+/**
+ * @param $min   min-width
+ * @param $max   max-width
+ */
 @mixin screen($min, $max) {
     @media screen and (min-width: $min) and (max-width: $max) {
         @content;
@@ -32,6 +36,12 @@
     background-size: $background-size;
 }
 
+/**
+ * @param $filename
+ * @param $retina-filename   多个或者一个
+ * @param $ratio             多个或者一个
+ * @param $background-size
+ */
 @mixin retina-image($filename, $retina-filename, $ratio: 1.3, $background-size: 100%) {
     background-image: url("#{$filename}");
     @if length($retina-filename)>1 {

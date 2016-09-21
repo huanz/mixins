@@ -1,5 +1,6 @@
 /**
- * @desc 文字超出省略号，支持多行，$substract预留区域百分比%
+ * @param $line       超出显示省略号的行数，默认：1
+ * @param $substract  为预留区域百分比%，默认：0
  */
 @mixin text-overflow($line: 1, $substract: 0) {
     overflow: hidden;

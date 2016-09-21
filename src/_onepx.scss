@@ -1,3 +1,7 @@
+/**
+ * @param $color
+ * @param $direction: top bottom left right vertical all,  default: all
+ */
 @mixin onepx($color, $direction) {
     $border-t: -webkit-gradient(linear, left bottom, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
     $border-b: -webkit-gradient(linear, left top, left bottom, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));

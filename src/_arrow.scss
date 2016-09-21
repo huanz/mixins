@@ -1,5 +1,10 @@
 /**
- * @desc 绘制箭头 http://lugolabs.com/caret
+ * @desc  绘制箭头 http://lugolabs.com/caret
+ * @param $width
+ * @param $border-width
+ * @param $direction: top bottom left right
+ * @param $background-color
+ * @param $position 默认relative
  */
 @mixin arrow($width, $border-width, $direction, $color, $background-color, $position: relative) {
     $map-direction: (

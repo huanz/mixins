@@ -1,0 +1,45 @@
+/**
+ * @param $height  线高  default: 1px
+ * @param $space   线距离文字两边的距离 default: 0.5em
+ * @param $color   线颜色 default: inherit
+ * @param $style   border-style default: solid
+ * @param $adjust  线距离底部的距离，默认垂直居中 default: false
+ * @param $double  是否需要两条线
+ */
+@mixin side-line($height: 1px, $space: 0.5em, $color: inherit, $style: solid, $adjust: false, $double: false) {
+    display: block;
+    overflow: hidden;
+    text-align: center;
+    &:before,
+    &:after {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        width: 50%;
+        border-top-style: $style;
+        border-top-width: $height;
+        @if $color !=inherit {
+            border-top-color: $color;
+        }
+        @if $adjust !=false {
+            bottom: $adjust;
+        }
+        @if $double !=false {
+            height: $double;
+            border-bottom-style: $style;
+            border-bottom-width: $height;
+            @if $color !=inherit {
+                border-bottom-color: $color;
+            }
+        }
+    }
+    &:before {
+        right: $space;
+        margin-left: -50%;
+    }
+    &:after {
+        left: $space;
+        margin-right: -50%;
+    }
+}
