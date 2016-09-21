@@ -168,17 +168,7 @@ px转rem
 
 ### triangle
 
-<style>
-.triangle {
-    height: 0;
-    width: 0;
-    border-top: 10px solid #000;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-}
-</style>
-
-三角形生成，<span class="triangle"></span>
+三角形生成
 
 ```scss
 /**
