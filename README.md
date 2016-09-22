@@ -1,4 +1,4 @@
-# mixins-sass [![mixins-sass](https://img.shields.io/npm/v/mixins-sass.svg?style=flat-square)](https://www.npmjs.com/package/mixins-sass) [![mixins-sass](https://img.shields.io/npm/dt/mixins-sass.svg?maxAge=2592000)](https://www.npmjs.com/package/mixins-sass)
+# mixins-sass [![mixins-sass](https://img.shields.io/npm/v/mixins-sass.svg?style=flat-square)](https://www.npmjs.com/package/mixins-sass) [![mixins-sass](https://img.shields.io/npm/dt/mixins-sass.svg)](https://www.npmjs.com/package/mixins-sass)
 
 sass mixins，require `Sass ~> 3.3.0`
 
