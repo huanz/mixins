@@ -1,6 +1,6 @@
 {
   "name": "mixins-sass",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a sass mixins library",
   "main": "src/mixins.scss",
   "dependencies": {

@@ -19,12 +19,7 @@
     }
     $conf: map-get($map-direction, $direction);
 
-    button& {
-        overflow: visible;
-    }
-
     position: relative;
-
     &:before,
     &:after {
         position: absolute;

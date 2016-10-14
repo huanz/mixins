@@ -268,10 +268,13 @@ body {
 ```scss
 /**
  * @param $color
- * @param $direction: top bottom left right vertical all,  default: all
+ * @param $direction: top bottom left right vertical all radius,  default: all
  */
 .border-l {
     @include onepx(#eee, left);
+}
+.border-radius {
+    @include onepx(#eee, radius, 2px);
 }
 ```
 
