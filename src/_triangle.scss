@@ -16,7 +16,12 @@
         @error "triangle $direction 必须为：#{map-keys($map-direction)}";
     }
     $conf: map-get($map-direction, $direction);
-    $width: $width/2;
+    @if $direction==top or $direction==bottom {
+        $width: $width/2;
+    }
+    @else {
+        $height: $height/2;
+    }
 
     height: 0;
     width: 0;
