@@ -11,10 +11,7 @@
     }
     @else {
         display: -webkit-box;
-        display: box;
         -webkit-line-clamp: $line;
-        line-clamp: $line;
         -webkit-box-orient: vertical;
-        box-orient: vertical;
     }
 }
