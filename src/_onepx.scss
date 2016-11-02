@@ -2,21 +2,14 @@
  * @param $color
  * @param $direction: top bottom left right vertical all radius,  default: all
  */
-@mixin onepx($color, $direction: all, $radius: 1px) {
-    $border-t: -webkit-gradient(linear, left bottom, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
-    $border-b: -webkit-gradient(linear, left top, left bottom, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
-    $border-l: -webkit-gradient(linear, right top, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
-    $border-r: -webkit-gradient(linear, left top, right top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
-    
+@mixin _border($color, $direction: all, $radius: 1px) {
     $list: top bottom left right;
-
     @if contain($list, $direction) {
         border-#{$direction}: 1px solid $color;
     }
     @else if $direction==vertical {
         border-top: 1px solid $color;
         border-bottom: 1px solid $color;
-        background-image:none;
     }
     @else {
         border: 1px solid $color;
@@ -24,7 +17,25 @@
             border-radius: $radius;
         }
     }
-    @media screen and (-webkit-min-device-pixel-ratio : 2) {
+}
+
+/**
+ * @param $color
+ * @param $direction: top bottom left right vertical all,  default: all
+ * @param $pseudo: after before, default: after
+ */
+@mixin onepx($color, $direction: all, $pseudo: after) {
+    $border-t: -webkit-gradient(linear, left bottom, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
+    $border-b: -webkit-gradient(linear, left top, left bottom, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
+    $border-l: -webkit-gradient(linear, right top, left top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
+    $border-r: -webkit-gradient(linear, left top, right top, color-stop(.5, rgba(0, 0, 0, 0)), color-stop(.5, $color));
+
+    @include _border($color, $direction);
+
+    @if $direction==vertical {
+        background-image:none;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 2) {
         border: 0;
         @if $direction==top or $direction==bottom or $direction==vertical {
             background-repeat: repeat-x;
@@ -59,42 +70,52 @@
         }
         @else {
             position: relative;
-            @if $direction==radius {
-                &:before {
-                    content: " ";
-                    width: 200%;
-                    height: 200%;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    border: 1px solid $color;
-                    transform: scale(.5);
-                    transform-origin: 0 0;
-                    padding: 1px;
-                    box-sizing: border-box;
-                    border-radius: $radius;
-                    pointer-events: none;
-                }
+            &:#{$pseudo} {
+                content: " ";
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0; 
+                background-image: $border-t, $border-r, $border-b, $border-l;
+                -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+                        background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+                background-repeat: no-repeat;
+                background-position: top, right, bottom, left;
+                padding: 1px;
+                box-sizing: border-box;
+                z-index: 10;
+                pointer-events: none;
             }
-            @else {
-                &:after {
-                    content: " ";
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    top: 0;
-                    left: 0; 
-                    background-image: $border-t, $border-r, $border-b, $border-l;
-                    -webkit-background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
-                            background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
-                    background-repeat: no-repeat;
-                    background-position: top, right, bottom, left;
-                    padding: 1px;
-                    box-sizing: border-box;
-                    z-index: 10;
-                    pointer-events: none;
-                }
-            }
+        }
+    }
+}
+
+/**
+ * @param $color
+ * @param $direction: top bottom left right vertical all radius,  default: all
+ * @param $pseudo: after before, default: after
+ * @param $radius default: 1px
+ */
+@mixin onepx-scale($color, $direction: all, $pseudo: after, $radius: 1px) {
+    @include _border($color, $direction, $radius);
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+        position: relative;
+        border: 0;
+        &:#{$pseudo} {
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            @include _border($color, $direction, $radius);
+            -webkit-transform: scale(.5);
+            transform: scale(.5);
+            transform-origin: 0 0;
+            padding: 1px;
+            box-sizing: border-box;
+            pointer-events: none;
         }
     }
 }

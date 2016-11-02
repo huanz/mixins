@@ -263,18 +263,32 @@ body {
 
 ### onepx
 
-移动端`1像素`方案
+移动端`1像素`方案，通过`background-image`渐变色实现
+
+```scss
+/**
+ * @param $color
+ * @param $direction: top bottom left right vertical all,  default: all
+ * @param $pseudo: after before, default: after
+ */
+.border-l {
+    @include onepx(#eee, left);
+}
+```
+
+**onepx-scale**
+
+通过`transform`实现，支持圆角
 
 ```scss
 /**
  * @param $color
  * @param $direction: top bottom left right vertical all radius,  default: all
+ * @param $pseudo: after before, default: after
+ * @param $radius default: 1px
  */
-.border-l {
-    @include onepx(#eee, left);
-}
-.border-radius {
-    @include onepx(#eee, radius, 2px);
+.border-r {
+    @include onepx-scale(#eee, radius, after, 2px);
 }
 ```
 
