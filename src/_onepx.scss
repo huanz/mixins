@@ -98,6 +98,7 @@
  * @param $radius default: 1px
  */
 @mixin onepx-scale($color, $direction: all, $pseudo: after, $radius: 1px) {
+    $list: top bottom left right;
     @include _border($color, $direction, $radius);
     @media only screen and (-webkit-min-device-pixel-ratio: 2) {
         position: relative;
@@ -105,17 +106,62 @@
         &:#{$pseudo} {
             content: " ";
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            @include _border($color, $direction, $radius);
-            -webkit-transform: scale(.5);
-            transform: scale(.5);
-            transform-origin: 0 0;
-            padding: 1px;
-            box-sizing: border-box;
+            display: block;
+            z-index: 5;
             pointer-events: none;
+
+            @if contain($list, $direction) {
+                background-color: $color;
+            }
+
+            @if $direction==top or $direction==bottom {
+                left: 0;
+                height: 1px;
+                width: 100%;
+                -webkit-transform: scaleY(.5);
+                transform: scaleY(.5);
+                @if $direction==top {
+                    top: 0;
+                    -webkit-transform-origin: 50% 0;
+                    transform-origin: 50% 0;
+                }
+                @else {
+                    bottom: 0;
+                    -webkit-transform-origin: 50% 100%;
+                    transform-origin: 50% 100%;
+                }
+                
+            }
+            @else if $direction==left or $direction==right {
+                top: 0;
+                width: 1px;
+                height: 100%;
+                -webkit-transform: scaleX(.5);
+                transform: scaleX(.5);
+
+                @if $direction==left {
+                    left: 0;
+                    -webkit-transform-origin: 0% 50%;
+                    transform-origin: 0% 50%;
+                }
+                @else {
+                    right: 0;
+                    -webkit-transform-origin: 100% 50%;
+                    transform-origin: 100% 50%;
+                }
+            }
+            @else {
+                top: 0;
+                left: 0;
+                width: 200%;
+                height: 200%;
+                @include _border($color, $direction, $radius);
+                -webkit-transform: scale(.5);
+                transform: scale(.5);
+                -webkit-transform-origin: 0 0;
+                transform-origin: 0 0;
+                box-sizing: border-box;
+            }
         }
     }
 }
