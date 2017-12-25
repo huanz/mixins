@@ -9,7 +9,7 @@
         #{$property}: $values;
 	}
     @if $base == null {
-        @if global-variable-exists($base-font) {
+        @if global-variable-exists(base-font) {
             $base: $base-font;
         }
         @else {
