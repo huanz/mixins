@@ -156,7 +156,7 @@
                 left: 0;
                 width: 200%;
                 height: 200%;
-                @include _border($color, $direction, $radius);
+                @include _border($color, $direction, $radius*2);
                 -webkit-transform: scale(.5);
                 transform: scale(.5);
                 box-sizing: border-box;
